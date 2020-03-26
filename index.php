@@ -51,7 +51,6 @@ require_once 'functions.php';
           echo user_role_create();
     	}
     ?>
-
         <h1>Add new user role</h1>
         <form method='post' action='' enctype=\"multipart/form-data\">
           <div class='form-group row'>
@@ -60,7 +59,7 @@ require_once 'functions.php';
           </div>
           <input type='submit' value='Create User Role' class='btn btn-primary'>
         </form>
-
+        
     <?php elseif (isset($_GET['p']) && $_GET['p'] == 'add_user') : 
 
         // create new user if we have form data
@@ -68,7 +67,6 @@ require_once 'functions.php';
             echo user_create();
         }
     ?>
-    	
         <h1>Add new user</h1>
         <form method='post' action='' enctype=\"multipart/form-data\">
           <div class='form-group row'>
@@ -109,6 +107,5 @@ require_once 'functions.php';
           ?>
         </table>
     <?php endif; ?>
-
   </body>
 </html>
