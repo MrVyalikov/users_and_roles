@@ -46,73 +46,69 @@ require_once 'functions.php';
 
     <?php if (isset($_GET['p']) && $_GET['p'] == 'add_user_role') : 
 
-    	// create new user role if we have form data
-    	if(isset($_POST['rolename'])) {
-			echo user_role_create();
+        // create new user role if we have form data
+        if(isset($_POST['rolename'])) {
+          echo user_role_create();
     	}
-    	?>
+    ?>
 
-	    <h1>Add new user role</h1>
-	    <form method='post' action='' enctype=\"multipart/form-data\">
-	      <div class='form-group row'>
-	        <label for='rolename' class='col-sm-4'>User Role:</label>
-	        <input type='text' id='rolename' name='rolename' maxlength=20 class='col-sm-4' placeholder='enter user role'/>
-	      </div>
-	      <input type='submit' value='Create User Role' class='btn btn-primary'>
-	    </form>
+        <h1>Add new user role</h1>
+        <form method='post' action='' enctype=\"multipart/form-data\">
+          <div class='form-group row'>
+            <label for='rolename' class='col-sm-4'>User Role:</label>
+            <input type='text' id='rolename' name='rolename' maxlength=20 class='col-sm-4' placeholder='enter user role'/>
+          </div>
+          <input type='submit' value='Create User Role' class='btn btn-primary'>
+        </form>
 
     <?php elseif (isset($_GET['p']) && $_GET['p'] == 'add_user') : 
 
-    	// create new user if we have form data
-    	if(isset($_POST['username'])) {
-			echo user_create();
-    	}
-    	?>
+        // create new user if we have form data
+        if(isset($_POST['username'])) {
+            echo user_create();
+        }
+    ?>
     	
-	    <h1>Add new user</h1>
-	    <form method='post' action='' enctype=\"multipart/form-data\">
-	      <div class='form-group row'>
-	        <label for='username' class='col-sm-4'>Username:</label>
-	        <input type='text' id='username' name='username' maxlength=20 class='col-sm-4' placeholder='enter username'/>
-	      </div>
-	              	
-	        	
-	      <div class='form-group row'>
-	        <label for='role_id' class='col-sm-4'>User role:</label>
-	        <select name="role_id">
+        <h1>Add new user</h1>
+        <form method='post' action='' enctype=\"multipart/form-data\">
+          <div class='form-group row'>
+            <label for='username' class='col-sm-4'>Username:</label>
+            <input type='text' id='username' name='username' maxlength=20 class='col-sm-4' placeholder='enter username'/>
+          </div>
+ 	
+          <div class='form-group row'>
+            <label for='role_id' class='col-sm-4'>User role:</label>
+            <select name="role_id">
               <?php
-				$stmt = $dbPDO->query("SELECT * FROM `user_role`");
-				$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-				foreach ($rows as $row) {
-					echo "<option value='" . $row['id'] . "'>" . $row['rolename'] . "</option>";
-				}
-			  ?>
-	        </select>
-	      </div>
-	      <input type='submit' value='Create User' class='btn btn-primary'>
-	    </form>
+                $stmt = $dbPDO->query("SELECT * FROM `user_role`");
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($rows as $row) {
+                  echo "<option value='" . $row['id'] . "'>" . $row['rolename'] . "</option>";
+                }
+              ?>
+            </select>
+          </div>
+          <input type='submit' value='Create User' class='btn btn-primary'>
+        </form>
 
-	<?php else : ?>
-
-		<h1>Users</h1>
-		<table class="table">
-			<thead>
-		    <tr>
-		      <th scope="col">Username</th>
-		      <th scope="col">Role</th>
-		    </tr>
-		  </thead>
-		  <?php
-			$stmt = $dbPDO->query("SELECT * FROM `user` LEFT JOIN `user_role` ON user.role_id = user_role.id");
-			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($rows as $row) {
-				echo "<tr>";
-				echo "<td>". $row['username'] . "</td><td>" . $row['rolename'] . "</td>";
-				echo "</tr>";
-			}
-		  ?>
-		</table>
-	<?php endif; ?>
+    <?php else : ?>
+        <h1>Users</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <?php
+            $stmt = $dbPDO->query("SELECT * FROM `user` LEFT JOIN `user_role` ON user.role_id = user_role.id");
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($rows as $row) {
+              echo "<tr><td>". $row['username'] . "</td><td>" . $row['rolename'] . "</td></tr>";
+            }
+          ?>
+        </table>
+    <?php endif; ?>
 
   </body>
 </html>
